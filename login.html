@@ -8,14 +8,11 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&family=Sora:wght@600;700;800&display=swap" rel="stylesheet" />
-  <meta name="theme-color" content="#07110f" />
-  <meta name="color-scheme" content="dark" />
   <link rel="stylesheet" href="assets/styles.css" />
 </head>
 <body>
-  <a class="skip-link" href="#main">Skip to content</a>
   <header class="site-header" data-header></header>
-  <main id="main" class="container">
+  <main class="container">
     <section class="page-hero">
       <h1>Login to Yono Games</h1>
       <p>Use your registered mobile number to access wallet, bonuses and game history.</p>
@@ -25,13 +22,13 @@
       <form class="panel form" id="login-form">
         <h2>Player login</h2>
         <label>Mobile number
-          <input type="tel" name="phone" placeholder="+91 98765 43210" inputmode="tel" autocomplete="tel" required />
+          <input type="tel" name="phone" placeholder="+91 98765 43210" required />
         </label>
         <label>OTP
-          <input type="text" name="otp" placeholder="Enter 6-digit OTP" inputmode="numeric" maxlength="6" autocomplete="one-time-code" required />
+          <input type="text" name="otp" placeholder="Enter 6-digit OTP" maxlength="6" required />
         </label>
         <button class="btn btn-primary" type="submit">Login securely</button>
-        <p id="login-msg" class="hint" role="status" aria-live="polite"></p>
+        <p id="login-msg" style="color:var(--muted);font-size:.92rem"></p>
       </form>
 
       <div class="panel">
@@ -48,5 +45,12 @@
   </main>
   <footer class="site-footer" data-footer></footer>
   <script src="assets/site.js"></script>
+  <script>
+    document.getElementById("login-form")?.addEventListener("submit", (e) => {
+      e.preventDefault();
+      document.getElementById("login-msg").textContent =
+        "Demo login only — no account is created. Connect your real auth API in production.";
+    });
+  </script>
 </body>
 </html>

@@ -31,13 +31,34 @@ function renderShell() {
         <div class="nav">
           <a class="brand" href="index.html" aria-label="Yono Games home">
             <span class="brand-mark" aria-hidden="true">YG</span>
-            <span>Yono Games</span>
+            <span class="brand-text">Yono Games</span>
           </a>
           <nav class="nav-links" aria-label="Primary">${links}</nav>
-          <a class="btn btn-primary header-cta" href="apk.html">Download APK</a>
+          <div class="nav-actions">
+            <a class="btn btn-primary header-cta" href="apk.html">
+              <span class="cta-full">Download APK</span>
+              <span class="cta-short">APK</span>
+            </a>
+            <button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="side-nav">
+              <span class="menu-toggle-bars" aria-hidden="true">
+                <span></span><span></span><span></span>
+              </span>
+            </button>
+          </div>
         </div>
-        <nav class="mobile-nav" aria-label="Mobile">${links}</nav>
-      </div>`;
+      </div>
+      <div class="nav-overlay" data-nav-overlay hidden></div>
+      <aside class="side-nav" id="side-nav" aria-hidden="true" aria-label="Mobile menu">
+        <div class="side-nav-head">
+          <div class="brand">
+            <span class="brand-mark" aria-hidden="true">YG</span>
+            <span>Yono Games</span>
+          </div>
+          <button class="side-nav-close" type="button" aria-label="Close menu">✕</button>
+        </div>
+        <nav class="side-nav-links">${links}</nav>
+        <a class="btn btn-primary side-nav-cta" href="apk.html">Download APK</a>
+      </aside>`;
   }
 
   const footer = document.querySelector("[data-footer]");
@@ -59,6 +80,47 @@ function renderShell() {
         Demo marketing website for portfolio / hiring assessment. 18+ only. Play responsibly. Gaming laws vary by state in India.
       </div>`;
   }
+
+  bindSideNav();
+}
+
+function bindSideNav() {
+  const toggle = document.querySelector(".menu-toggle");
+  const closeBtn = document.querySelector(".side-nav-close");
+  const overlay = document.querySelector("[data-nav-overlay]");
+  const sideNav = document.getElementById("side-nav");
+  if (!toggle || !sideNav || !overlay) return;
+
+  const open = () => {
+    document.body.classList.add("nav-open");
+    sideNav.classList.add("is-open");
+    overlay.hidden = false;
+    requestAnimationFrame(() => overlay.classList.add("is-visible"));
+    toggle.setAttribute("aria-expanded", "true");
+    sideNav.setAttribute("aria-hidden", "false");
+  };
+
+  const close = () => {
+    document.body.classList.remove("nav-open");
+    sideNav.classList.remove("is-open");
+    overlay.classList.remove("is-visible");
+    toggle.setAttribute("aria-expanded", "false");
+    sideNav.setAttribute("aria-hidden", "true");
+    setTimeout(() => {
+      if (!document.body.classList.contains("nav-open")) overlay.hidden = true;
+    }, 280);
+  };
+
+  toggle.addEventListener("click", () => {
+    if (document.body.classList.contains("nav-open")) close();
+    else open();
+  });
+  closeBtn?.addEventListener("click", close);
+  overlay.addEventListener("click", close);
+  sideNav.querySelectorAll("a").forEach((link) => link.addEventListener("click", close));
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && document.body.classList.contains("nav-open")) close();
+  });
 }
 
 function bindApkDownload() {
