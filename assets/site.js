@@ -153,18 +153,44 @@ function renderFooter() {
   }
 }
 
+const BOTTOM_BANNER_KEY = "yonoBottomBannerClosed";
+
 function renderBottomBar() {
   if (document.querySelector(".bottom-bar")) return;
+  if (sessionStorage.getItem(BOTTOM_BANNER_KEY) === "1") return;
+
   const bar = document.createElement("div");
   bar.className = "bottom-bar";
-  bar.setAttribute("aria-label", "register / login");
+  bar.setAttribute("aria-label", "register / login banner");
+  bar.setAttribute("hidden", "");
   bar.innerHTML = `
     <div class="inner">
       <a class="btn btn-primary" href="login.html">Daftar</a>
       <a class="btn btn-ghost" href="login.html">Log Masuk</a>
+      <button class="bottom-bar-close" type="button" aria-label="Tutup banner">×</button>
     </div>
   `;
   document.body.appendChild(bar);
+
+  const showBanner = () => {
+    if (sessionStorage.getItem(BOTTOM_BANNER_KEY) === "1") return;
+    if (window.scrollY < 220) return;
+    bar.removeAttribute("hidden");
+    document.body.classList.add("has-bottom-banner");
+  };
+
+  const hideBanner = () => {
+    sessionStorage.setItem(BOTTOM_BANNER_KEY, "1");
+    bar.setAttribute("hidden", "");
+    document.body.classList.remove("has-bottom-banner");
+    window.removeEventListener("scroll", onScroll);
+  };
+
+  const onScroll = () => showBanner();
+
+  bar.querySelector(".bottom-bar-close")?.addEventListener("click", hideBanner);
+  window.addEventListener("scroll", onScroll, { passive: true });
+  showBanner();
 }
 
 document.addEventListener("DOMContentLoaded", () => {
