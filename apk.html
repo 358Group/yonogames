@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>APK Download | Yono Games</title>
+  <meta name="description" content="Download the latest Yono Games APK for Android. Fast install guide, safe APK and welcome bonus." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&family=Sora:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body>
+  <header class="site-header" data-header></header>
+  <main class="container">
+    <section class="page-hero">
+      <h1>Download Yono Games APK</h1>
+      <p>Get the official Android package, install in minutes and claim your welcome bonus.</p>
+    </section>
+
+    <section class="grid-2 section" style="padding-top:0">
+      <div class="panel">
+        <h2>Latest APK</h2>
+        <p style="color:var(--muted);margin:.7rem 0 1rem">Version 4.2.1 · Size ~48 MB · Updated today</p>
+        <ul class="bonus-list" style="margin-bottom:1rem">
+          <li><span>File</span><strong>yono-games-latest.apk</strong></li>
+          <li><span>Platform</span><strong>Android 7.0+</strong></li>
+          <li><span>Bonus</span><strong>+5% first add cash</strong></li>
+        </ul>
+        <a class="btn btn-primary" href="#download" id="apk-download">Download APK Now</a>
+        <p id="download-status" style="color:var(--muted);margin-top:.8rem;font-size:.9rem"></p>
+      </div>
+
+      <div class="panel">
+        <h2>Install steps</h2>
+        <ol style="margin:1rem 0 0 1.1rem;color:var(--muted);display:grid;gap:.7rem">
+          <li>Tap <strong style="color:#eef7f2">Download APK Now</strong>.</li>
+          <li>Open the file from notifications.</li>
+          <li>Allow install from unknown sources if asked.</li>
+          <li>Open Yono Games, register with mobile OTP.</li>
+          <li>Claim welcome bonus and start playing.</li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="panel" style="margin-top:1rem">
+      <h2>Need help?</h2>
+      <p style="color:var(--muted);margin:.6rem 0 1rem">If download is stuck, clear browser cache or try again on mobile data. For login issues visit the login page.</p>
+      <a class="btn btn-secondary" href="login.html">Go to Login</a>
+    </section>
+  </main>
+  <footer class="site-footer" data-footer></footer>
+  <script src="assets/site.js"></script>
+  <script>
+    document.getElementById("apk-download")?.addEventListener("click", (e) => {
+      e.preventDefault();
+      const status = document.getElementById("download-status");
+      status.textContent = "Preparing yono-games-latest.apk... Demo download started (placeholder).";
+      setTimeout(() => {
+        status.textContent = "APK ready. In production this would download the real file.";
+      }, 900);
+    });
+  </script>
+</body>
+</html>

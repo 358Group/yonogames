@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login | Yono Games</title>
+  <meta name="description" content="Secure login to Yono Games with mobile number and OTP." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&family=Sora:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body>
+  <header class="site-header" data-header></header>
+  <main class="container">
+    <section class="page-hero">
+      <h1>Login to Yono Games</h1>
+      <p>Use your registered mobile number to access wallet, bonuses and game history.</p>
+    </section>
+
+    <section class="grid-2 section" style="padding-top:0">
+      <form class="panel form" id="login-form">
+        <h2>Player login</h2>
+        <label>Mobile number
+          <input type="tel" name="phone" placeholder="+91 98765 43210" required />
+        </label>
+        <label>OTP
+          <input type="text" name="otp" placeholder="Enter 6-digit OTP" maxlength="6" required />
+        </label>
+        <button class="btn btn-primary" type="submit">Login securely</button>
+        <p id="login-msg" style="color:var(--muted);font-size:.92rem"></p>
+      </form>
+
+      <div class="panel">
+        <h2>New here?</h2>
+        <p style="color:var(--muted);margin:.7rem 0 1rem">Download the APK, register with OTP and unlock welcome rewards instantly.</p>
+        <ul class="bonus-list" style="margin-bottom:1rem">
+          <li><span>Welcome reward</span><strong>upto ₹1,00,000</strong></li>
+          <li><span>Referral</span><strong>earn daily</strong></li>
+          <li><span>Support</span><strong>24×7 chat</strong></li>
+        </ul>
+        <a class="btn btn-amber" href="apk.html">Create account via APK</a>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer" data-footer></footer>
+  <script src="assets/site.js"></script>
+  <script>
+    document.getElementById("login-form")?.addEventListener("submit", (e) => {
+      e.preventDefault();
+      document.getElementById("login-msg").textContent =
+        "Demo login only — no account is created. Connect your real auth API in production.";
+    });
+  </script>
+</body>
+</html>
