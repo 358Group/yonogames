@@ -46,20 +46,27 @@ function renderShell() {
             </button>
           </div>
         </div>
-      </div>
-      <div class="nav-overlay" data-nav-overlay hidden></div>
-      <aside class="side-nav" id="side-nav" aria-hidden="true" aria-label="Mobile menu">
-        <div class="side-nav-head">
-          <div class="brand">
-            <span class="brand-mark" aria-hidden="true">YG</span>
-            <span>Yono Games</span>
-          </div>
-          <button class="side-nav-close" type="button" aria-label="Close menu">✕</button>
-        </div>
-        <nav class="side-nav-links">${links}</nav>
-        <a class="btn btn-primary side-nav-cta" href="apk.html">Download APK</a>
-      </aside>`;
+      </div>`;
   }
+
+  // Keep drawer on body so sticky header backdrop-filter doesn't trap fixed layers
+  document.querySelectorAll("[data-nav-overlay], #side-nav").forEach((el) => el.remove());
+  document.body.insertAdjacentHTML(
+    "beforeend",
+    `
+    <div class="nav-overlay" data-nav-overlay hidden></div>
+    <aside class="side-nav" id="side-nav" aria-hidden="true" aria-label="Mobile menu">
+      <div class="side-nav-head">
+        <div class="brand">
+          <span class="brand-mark" aria-hidden="true">YG</span>
+          <span>Yono Games</span>
+        </div>
+        <button class="side-nav-close" type="button" aria-label="Close menu">✕</button>
+      </div>
+      <nav class="side-nav-links">${links}</nav>
+      <a class="btn btn-primary side-nav-cta" href="apk.html">Download APK</a>
+    </aside>`
+  );
 
   const footer = document.querySelector("[data-footer]");
   if (footer) {
@@ -97,6 +104,7 @@ function bindSideNav() {
     overlay.hidden = false;
     requestAnimationFrame(() => overlay.classList.add("is-visible"));
     toggle.setAttribute("aria-expanded", "true");
+    toggle.setAttribute("aria-label", "Close menu");
     sideNav.setAttribute("aria-hidden", "false");
   };
 
@@ -105,6 +113,7 @@ function bindSideNav() {
     sideNav.classList.remove("is-open");
     overlay.classList.remove("is-visible");
     toggle.setAttribute("aria-expanded", "false");
+    toggle.setAttribute("aria-label", "Open menu");
     sideNav.setAttribute("aria-hidden", "true");
     setTimeout(() => {
       if (!document.body.classList.contains("nav-open")) overlay.hidden = true;
@@ -120,6 +129,9 @@ function bindSideNav() {
   sideNav.querySelectorAll("a").forEach((link) => link.addEventListener("click", close));
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape" && document.body.classList.contains("nav-open")) close();
+  });
+  window.addEventListener("resize", () => {
+    if (window.innerWidth > 900 && document.body.classList.contains("nav-open")) close();
   });
 }
 
